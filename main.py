@@ -60,7 +60,6 @@ async def show_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("У вас не добавлено фото")
 
 
-
 async def show_voices(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Ваши голосовые:")
     user = update.message.from_user

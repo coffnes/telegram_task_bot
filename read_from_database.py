@@ -9,16 +9,18 @@ logger = logging.getLogger(__name__)
 
 DATABASE_NAME = 'user_data.db'
 
+
 def writeToFile(data, filename):
     with open(filename, 'wb') as file:
         file.write(data)
-    print("Stored blob data into: ", filename, "\n")
+    logger.info("Stored blob data into: ", filename, "\n")
+
 
 def photo_from_db(user_id):
     temp_name = ""
     try:
-        sqliteConnection = sqlite3.connect('user_data.db')
-        cursor = sqliteConnection.cursor()
+        sqlite_connection = sqlite3.connect('user_data.db')
+        cursor = sqlite_connection.cursor()
         logger.info("Successfuly Connected to SQLite")
 
         sql_fetch_blob_query = """SELECT * from user_data WHERE id = ?"""
@@ -32,19 +34,18 @@ def photo_from_db(user_id):
     except sqlite3.Error as error:
         logger.info("Failed to read blob data from sqlite table", error)
     finally:
-        if sqliteConnection:
-            sqliteConnection.close()
+        if sqlite_connection:
+            sqlite_connection.close()
             logger.info("sqlite connection is closed")
 
     return temp_name
 
 
-
 def voices_from_db(user_id):
     temp = list()
     try:
-        sqliteConnection = sqlite3.connect('user_data.db')
-        cursor = sqliteConnection.cursor()
+        sqlite_connection = sqlite3.connect('user_data.db')
+        cursor = sqlite_connection.cursor()
         logger.info("Successfuly Connected to SQLite")
         sql_fetch_blob_query = """SELECT * from voices WHERE user_id = ?"""
         cursor.execute(sql_fetch_blob_query, (user_id,))
@@ -60,8 +61,8 @@ def voices_from_db(user_id):
     except sqlite3.Error as error:
         logger.info("Failed to read blob data from sqlite table", error)
     finally:
-        if sqliteConnection:
-            sqliteConnection.close()
+        if sqlite_connection:
+            sqlite_connection.close()
             logger.info("sqlite connection is closed")
 
     return temp

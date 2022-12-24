@@ -1,1 +1,1 @@
-# telegram_task_bot
+# Тестовое задание на позицию Data Collection Specialist в компанию ID R&D
